@@ -4,6 +4,7 @@ from PyQt5.QtGui import QTextCursor
 from PyQt5.QtWidgets import QFileDialog, QMessageBox, QColorDialog, QFormLayout, QLineEdit, QPushButton, QInputDialog, \
     QWidget, QHBoxLayout, QDialog
 
+import Utils
 from Restore import Restore
 from Settings import Settings
 
@@ -19,66 +20,66 @@ class Ui_EditText(object):
     Text = None
 
     def setupUi(self, EditText):
-        EditText.setObjectName("EditText")
+        EditText.setObjectName(Utils.Constants.EDIT_TEXT)
         EditText.resize(width-500, height-500)
         self.settings = Settings()
         self.centralwidget = QtWidgets.QWidget(EditText)
-        self.centralwidget.setObjectName("centralwidget")
+        self.centralwidget.setObjectName(Utils.Constants.CENTRAL_WIDGET)
         self.gridLayout = QtWidgets.QGridLayout(self.centralwidget)
-        self.gridLayout.setObjectName("gridLayout")
+        self.gridLayout.setObjectName(Utils.Constants.GRID_LAYOUT)
         self.verticalLayout = QtWidgets.QVBoxLayout()
         self.verticalLayout.setSizeConstraint(QtWidgets.QLayout.SetMaximumSize)
-        self.verticalLayout.setObjectName("verticalLayout")
+        self.verticalLayout.setObjectName(Utils.Constants.VERTICAL_LAYOUT)
         self.Text = QtWidgets.QPlainTextEdit(self.centralwidget)
-        self.Text.setObjectName("Text")
+        self.Text.setObjectName(Utils.Constants.TEXT)
         self.Text.textChanged.connect(self.changed_Text)
         self.Text.setStyleSheet("color: " + self.settings.getColorText() + ";"+"background-color: "+self.settings.getBackgroundColor()+";"+"font: "+self.settings.getSizeFont()+"pt Comic Sans MS")
         self.verticalLayout.addWidget(self.Text)
         self.horizontalLayout = QtWidgets.QHBoxLayout()
-        self.horizontalLayout.setObjectName("horizontalLayout")
+        self.horizontalLayout.setObjectName(Utils.Constants.HORIZONTAL_LAYOUT)
         self.words = QtWidgets.QLabel(self.centralwidget)
-        self.words.setObjectName("words")
+        self.words.setObjectName(Utils.Constants.WORDS)
         self.horizontalLayout.addWidget(self.words)
         self.letters = QtWidgets.QLabel(self.centralwidget)
-        self.letters.setObjectName("letters")
+        self.letters.setObjectName(Utils.Constants.LETTERS)
         self.horizontalLayout.addWidget(self.letters)
         self.label = QtWidgets.QLabel(self.centralwidget)
-        self.label.setObjectName("label")
+        self.label.setObjectName(Utils.Constants.LABEL)
         self.horizontalLayout.addWidget(self.label)
         self.verticalLayout.addLayout(self.horizontalLayout)
         self.gridLayout.addLayout(self.verticalLayout, 0, 0, 2, 2)
         EditText.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(EditText)
         self.menubar.setGeometry(QtCore.QRect(0, 0, 877, 21))
-        self.menubar.setObjectName("menubar")
+        self.menubar.setObjectName(Utils.Constants.MENU_BAR)
         self.menuFile = QtWidgets.QMenu(self.menubar)
-        self.menuFile.setObjectName("menuFile")
+        self.menuFile.setObjectName(Utils.Constants.MENU_FILE)
         self.menuTool = QtWidgets.QMenu(self.menubar)
-        self.menuTool.setObjectName("menuTool")
+        self.menuTool.setObjectName(Utils.Constants.MENU_TOOL)
         EditText.setMenuBar(self.menubar)
         self.statusbar = QtWidgets.QStatusBar(EditText)
-        self.statusbar.setObjectName("statusbar")
+        self.statusbar.setObjectName(Utils.Constants.STATUSBAR)
         EditText.setStatusBar(self.statusbar)
         self.actionNew = QtWidgets.QAction(EditText)
-        self.actionNew.setObjectName("actionNew")
+        self.actionNew.setObjectName(Utils.Constants.ACTION_NEW)
         self.actionNew.triggered.connect(self.new_Listener)
         self.actionOpen = QtWidgets.QAction(EditText)
-        self.actionOpen.setObjectName("actionOpen")
+        self.actionOpen.setObjectName(Utils.Constants.ACTION_OPEN)
         self.actionOpen.triggered.connect(self.file_open)
         self.actionClose = QtWidgets.QAction(EditText)
-        self.actionClose.setObjectName("actionClose")
+        self.actionClose.setObjectName(Utils.Constants.ACTION_CLOSE)
         self.actionClose.triggered.connect(self.close_Listener)
         self.actionSave = QtWidgets.QAction(EditText)
-        self.actionSave.setObjectName("actionSave")
+        self.actionSave.setObjectName(Utils.Constants.ACTION_SAVE)
         self.actionSave.triggered.connect(self.file_save)
         self.actionTextColor = QtWidgets.QAction(EditText)
-        self.actionTextColor.setObjectName("actionTextColor")
+        self.actionTextColor.setObjectName(Utils.Constants.ACTION_TEXT_COLOR)
         self.actionTextColor.triggered.connect(self.textColor_Listener)
         self.actionBackgroundColor = QtWidgets.QAction(EditText)
-        self.actionBackgroundColor.setObjectName("actionTextColor")
+        self.actionBackgroundColor.setObjectName(Utils.Constants.ACTION_BACKGROUND_COLOR)
         self.actionBackgroundColor.triggered.connect(self.backgroundColor_Listener)
         self.actionSizeFont = QtWidgets.QAction(EditText)
-        self.actionSizeFont.setObjectName("actionSizeFont")
+        self.actionSizeFont.setObjectName(Utils.Constants.ACTION_FONT_SIZE)
         self.actionSizeFont.triggered.connect(self.actionSizeFont_Listener)
         self.menuFile.addAction(self.actionNew)
         self.menuFile.addAction(self.actionOpen)
@@ -97,8 +98,8 @@ class Ui_EditText(object):
         lines = file.readlines()
         if len(lines) != 0:
             restore = QMessageBox()
-            restore.setWindowTitle("EditText")
-            restore.setText("Do you want to restore data?")
+            restore.setWindowTitle(Utils.Constants.EDIT_TEXT)
+            restore.setText(Utils.Constants.ASK_RESTORE_DATA)
             restore.setStandardButtons(QMessageBox.Yes | QMessageBox.Cancel)
             restore = restore.exec()
             text = ""
@@ -112,19 +113,19 @@ class Ui_EditText(object):
 
     def retranslateUi(self, EditText):
         _translate = QtCore.QCoreApplication.translate
-        EditText.setWindowTitle(_translate("EditText", "EditText"))
-        self.words.setText(_translate("EditText", "Words: 0"))
-        self.letters.setText(_translate("EditText", "Letters: 0"))
-        self.label.setText(_translate("EditText", "UTF-8"))
-        self.menuFile.setTitle(_translate("EditText", "File"))
-        self.menuTool.setTitle(_translate("EditText", "Tools"))
-        self.actionNew.setText(_translate("EditText", "New"))
-        self.actionOpen.setText(_translate("EditText", "Open"))
-        self.actionClose.setText(_translate("EditText", "Close"))
-        self.actionSave.setText(_translate("EditText", "Save"))
-        self.actionTextColor.setText(_translate("EditText", "Text Color"))
-        self.actionBackgroundColor.setText(_translate("EditText", "Background Color"))
-        self.actionSizeFont.setText(_translate("EditText", "Size Font"))
+        EditText.setWindowTitle(_translate(Utils.Constants.EDIT_TEXT, Utils.Constants.EDIT_TEXT))
+        self.words.setText(_translate(Utils.Constants.EDIT_TEXT, "Words: 0"))
+        self.letters.setText(_translate(Utils.Constants.EDIT_TEXT, "Letters: 0"))
+        self.label.setText(_translate(Utils.Constants.EDIT_TEXT, "UTF-8"))
+        self.menuFile.setTitle(_translate(Utils.Constants.EDIT_TEXT, "File"))
+        self.menuTool.setTitle(_translate(Utils.Constants.EDIT_TEXT, "Tools"))
+        self.actionNew.setText(_translate(Utils.Constants.EDIT_TEXT, "New"))
+        self.actionOpen.setText(_translate(Utils.Constants.EDIT_TEXT, "Open"))
+        self.actionClose.setText(_translate(Utils.Constants.EDIT_TEXT, "Close"))
+        self.actionSave.setText(_translate(Utils.Constants.EDIT_TEXT, "Save"))
+        self.actionTextColor.setText(_translate(Utils.Constants.EDIT_TEXT, "Text Color"))
+        self.actionBackgroundColor.setText(_translate(Utils.Constants.EDIT_TEXT, "Background Color"))
+        self.actionSizeFont.setText(_translate(Utils.Constants.EDIT_TEXT, "Size Font"))
 
     def changed_Text(self):
         self.words.setText("Words: "+str(self.count_Words(self.Text.toPlainText())))
@@ -145,8 +146,8 @@ class Ui_EditText(object):
 
     def close_Listener(self):
         close = QMessageBox()
-        close.setWindowTitle("EditText")
-        close.setText("You sure?")
+        close.setWindowTitle(Utils.Constants.EDIT_TEXT)
+        close.setText(Utils.Constants.ASK_YOU_SURE)
         close.setStandardButtons(QMessageBox.Yes | QMessageBox.Save | QMessageBox.Cancel)
         close = close.exec()
 
@@ -172,7 +173,7 @@ class Ui_EditText(object):
                 self.originalText = text
                 file.close()
             except:
-                print("Can not open file")
+                print(Utils.Constants.ERROR_CAN_NOT_OPEN_FILE)
 
     def file_save(self, wants_exit):
         dlg = QFileDialog()
@@ -184,7 +185,7 @@ class Ui_EditText(object):
             self.restore.saved()
             file.close()
         except:
-            print("Canceled")
+            print(Utils.Constants.CANCELED)
         if wants_exit:
             exit()
 
@@ -193,8 +194,8 @@ class Ui_EditText(object):
             self.Text.setPlainText("")
         else:
             close = QMessageBox()
-            close.setWindowTitle("EditText")
-            close.setText("You sure?")
+            close.setWindowTitle(Utils.Constants.EDIT_TEXT)
+            close.setText(Utils.Constants.ASK_YOU_SURE)
             close.setStandardButtons(QMessageBox.Yes | QMessageBox.Save | QMessageBox.Cancel)
             close = close.exec()
 
@@ -220,7 +221,7 @@ class Ui_EditText(object):
         self.getSize()
 
     def getSize(self):
-        i, okPressed = QInputDialog.getInt(self.dialog, "Get integer", "Percentage:", int(self.settings.getSizeFont()), 5, 100, 1)
+        i, okPressed = QInputDialog.getInt(self.dialog, Utils.Constants.CHANGE_SIZE, Utils.Constants.PERCENTAGE+":", int(self.settings.getSizeFont()), 5, 100, 1)
         if okPressed:
             try:
                 self.Text.setStyleSheet("color: " + self.settings.getColorText() + ";" + "background-color: " + self.settings.getBackgroundColor() + ";" + "font: " + str(i) + "pt Comic Sans MS")
